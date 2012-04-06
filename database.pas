@@ -24,7 +24,7 @@ procedure writeBase(var a:base);
 	begin
 	writeln('--------------------------------------------------------------');
 	for i:=1 to a[0].stage do
-		writeln( a[i].fio,' ',a[i].stage,' ',a[i].price );
+		writeln( '| ' , a[i].fio+StringOfChar( ' ' , 30-length(a[i].fio) ),'| ',a[i].stage+StringOfChar( ' ' , 8-length(a[i].stage) ),'| ' , a[i].price+StringOfChar( ' ' , 8-length(a[i].stage) )+'|' );
 	writeln('--------------------------------------------------------------');
 	end;
 
