@@ -1,0 +1,40 @@
+type func = function(a:real):real;
+
+const POLENULLX = 30;
+const POLENULLY = 300;
+const POLEENDX = 330;
+const POLEENDY = 0;
+
+var
+i:integer;
+//test:func;
+
+//--------------------------------------------------
+
+{$F+}
+function test(a:real):real;
+	begin
+	test:=a;
+	end;
+{$F-}
+
+function getFunctionValue(f:func;t:real):real;
+	begin
+	getFunctionValue:=f(t);
+	end;
+	
+procedure plotLine(x,y: real);
+	begin end;
+	
+procedure plotCordLine(x1,x2,y1,y2:real);
+	begin end;
+
+
+	
+//--------------------------------------------------
+
+begin
+
+writeln(getFunctionValue(test,4));
+
+end.
