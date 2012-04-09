@@ -1,0 +1,14 @@
+const MAXVAL = 100;
+
+type vector = array[0..MAXVAL] of integer;
+
+type matrix = array[0..MAXVAL] of vector;
+
+function
+
+//var
+
+
+begin
+
+end.
