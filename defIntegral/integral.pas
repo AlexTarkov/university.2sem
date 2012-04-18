@@ -1,11 +1,4 @@
-type func = function(a:real):real; //NOT WORK
 
-type info = record
-	sum:real;
-	y:real;
-	end;
-
-//type heap = array[0..1000] of info;
 
 const POLENULLX = 30;
 const POLENULLY = 300;
@@ -19,8 +12,6 @@ i:integer;
 from,too,y1,y2,e:real;
 n:integer;
 
-
-//test:func;
 
 procedure importFromFile(var from,too,y1,y2,e:real; var n:integer; name:string);
 	var f:text;
@@ -45,17 +36,6 @@ function work_func(a:real):real;
 	begin
 	work_func:=a*sin(a);
 	end;
-//--------------------------------------------------
-
-
-{$F+}
-{function test(a:real):real; // NOT WORK
-	begin
-	test:=a;
-	end;}
-{$F-}
-
-
 //------------------------------------------------
 
 function getIntegralSum(lastSum:real; from,too:real; n:integer):real;
@@ -72,20 +52,21 @@ function getIntegralSum(lastSum:real; from,too:real; n:integer):real;
 	getIntegralSum:=res;
 	end;
 
-//------------------------------------------------
+//------------------------------------------------ GRAPHIC FUNCTION
+	
+procedure plotLine(x1,y1,x2,y2: real);
+	begin line(trunc(x1),trunc(y1),trunc(x2),trunc(y2)); end;
 
-function getFunctionValue(f:func;t:real):real;// NOT WORK
+procedure plotPole(from,too,y1,y2:real);
 	begin
-	getFunctionValue:=f(t);
+	from:=abs(from);
+	too:=abs(too);
+	from:=
+	from:=abs(from);
+	from:=abs(from);
 	end;
-//==================================================================
 	
-procedure plotLine(x,y: real);
-	begin end;
-
-
-	
-//--------------------------------------------------
+//------------------------------------------------- GRAPHIC FUNCTION
 
 begin
 
