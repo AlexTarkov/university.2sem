@@ -72,7 +72,7 @@ function multiplyMatrixVector(var a:matrix; var x:vector):vector;
 	end;
 
 
-procedure importFromFile(var a:matrix; var b:vector; var e:real; name:string);
+procedure importFromFile(var a:matrix; var b,x:vector; var e:real; name:string);
 	var f:text;
 	i,n,l:integer;
 	begin
@@ -88,8 +88,8 @@ procedure importFromFile(var a:matrix; var b:vector; var e:real; name:string);
 		//writeln(a[i][l]);
 		//readln(f);
 		end;
-	b[0]:=n;
-	for i:=1 to n do read(f,b[i]);
+	for i:=1 to n do read(f,b[i]); b[0]:=n;
+        for i:=1 to n do read(f,x[i]); x[0]:=n;
 	//readln(f);
 	readln(f,e);
 	close(f);
@@ -145,7 +145,7 @@ e:real;
 
 begin
 
-importFromFile(a,b,e,'input.txt');
+importFromFile(a,b,x1,e,'input.txt');
 //writeln('Norm: ',getNorm(a):0:4);
 if( getNorm(a) >= 1 ) then
 	begin writeln('Norm is bad: ' , getNorm(a):0:4); exit; end;
