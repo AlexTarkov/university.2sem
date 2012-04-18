@@ -1,4 +1,4 @@
-//type func = function(a:real):real; //NOT WORK
+type func = function(a:real):real; //NOT WORK
 
 type info = record
 	sum:real;
@@ -16,13 +16,13 @@ const DEL = 2;
 
 var
 i:integer;
-from,too,y1,y2:real;
+from,too,y1,y2,e:real;
 n:integer;
 
 
 //test:func;
 
-procedure importFromFile(var from,too,y1,y2:real; var n:integer; name:string);
+procedure importFromFile(var from,too,y1,y2,e:real; var n:integer; name:string);
 	var f:text;
 	i,n,l:integer;
 	begin
@@ -32,6 +32,7 @@ procedure importFromFile(var from,too,y1,y2:real; var n:integer; name:string);
 	readln(f,too);
 	readln(f,y1);
 	readln(f,y2);
+	readln(f,e);
 	readln(f,n);
 	close(f);
 	end;
@@ -88,6 +89,8 @@ procedure plotLine(x,y: real);
 
 begin
 
-importFromFile();
+importFromFile(from,too,y1,y2,n,'input.txt');
+
+
 
 end.
