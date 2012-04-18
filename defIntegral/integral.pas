@@ -29,12 +29,12 @@ procedure importFromFile(var from,too,y1,y2:real; var n:integer; name:string);
 	assign(f,name);
 	reset(f);
 	readln(f,from);
-	readln(f,too);
+//	readln(f,too); // JOHN1540M CHANGE THIS STRING
 	readln(f,y1);
-	readln(f,y2);
-	readln(f,n);
-	close(f);
-	end;
+
+//DELL END OF FUNCTION. 
+
+
 
 
 
@@ -89,5 +89,15 @@ procedure plotLine(x,y: real);
 begin
 
 importFromFile();
+
+//==========================================================
+//THIS IS WHAT I WANT TO CHANGE IN MASTER BRANCH (THINK SO)
+//==========================================================
+//BRANCH MASTER
+//ТЕСТ НА ПЕРЕДАЧУ РУССКОГО ЯЗЫКА ЧЕРЕЗ РЕПОЗИТОРИЙ
+//еще тест на передачу русского языка
+//=========================================================
+//THIS IS WHAT I WANT TO CHANGE IN MASTER BRANCH (THINK SO)
+//==========================================================
 
 end.
