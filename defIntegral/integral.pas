@@ -78,7 +78,7 @@ function getFunctionValue(f:func;t:real):real;// NOT WORK
 	begin
 	getFunctionValue:=f(t);
 	end;
-
+//==================================================================
 	
 procedure plotLine(x,y: real);
 	begin end;
@@ -89,7 +89,7 @@ procedure plotLine(x,y: real);
 
 begin
 
-importFromFile(from,too,y1,y2,n,'input.txt');
+importFromFile(from,too,y1,y2,e,n,'input.txt');
 
 
 
