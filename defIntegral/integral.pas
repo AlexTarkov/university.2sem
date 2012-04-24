@@ -91,11 +91,11 @@ begin
 importFromFile();
 
 //==========================================================
-//THIS IS WHAT I WANT TO CHANGE IN MASTER BRANCH (THINK SO)
-//==========================================================
+//THIS IS WHAT I WANT TO CHANGE IN CLASSMAN BRANCH
+//THIS IS WHAT I WANT TO CHANGE IN CLASSMAN BRANCH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //BRANCH MASTER
 //ТЕСТ НА ПЕРЕДАЧУ РУССКОГО ЯЗЫКА ЧЕРЕЗ РЕПОЗИТОРИЙ
-//еще тест на передачу русского языка
+//THIS IS WHAT I WANT TO CHANGE IN CLASSMAN BRANCH
 //=========================================================
 //THIS IS WHAT I WANT TO CHANGE IN MASTER BRANCH (THINK SO)
 //==========================================================
