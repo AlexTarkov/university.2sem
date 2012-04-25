@@ -1,40 +1,140 @@
-type func = function(a:real):real;
+uses graph,crt;
 
 const POLENULLX = 30;
-const POLENULLY = 300;
-const POLEENDX = 330;
-const POLEENDY = 0;
+const POLENULLY = 530;
+const POLEENDX = 530;
+const POLEENDY = 30;
+
+const DEL = 2;
 
 var
 i:integer;
-//test:func;
+from,too,y1,y2,e,k:real;
+n:integer;
 
-//--------------------------------------------------
+lsum,sum:real;
 
-{$F+}
-function test(a:real):real;
+gd,gm:integer;
+
+x0,y0:real;
+
+xb,yb,xe,ye:real;
+
+ch:char;
+
+
+
+//------------------------------------------------ GRAPHIC FUNCTION
+
+procedure plotLine(x1,y1,x2,y2: real);
+	begin line(POLENULLX+trunc(x1),POLENULLY-trunc(y1),POLENULLX+trunc(x2),POLENULLY-trunc(y2)); end;
+	
+procedure convertCord(x,y:real; var xx,yy:real);
 	begin
-	test:=a;
-	end;
-{$F-}
+	xx:=x0+x/(abs(from)+abs(too))*(POLEENDX-POLENULLX);
+	yy:=y0+y/(abs(y1)+abs(y2))*(POLENULLY-POLEENDY);
+	end;;
 
-function getFunctionValue(f:func;t:real):real;
+procedure plotPole(from,too,y1,y2:real);
 	begin
-	getFunctionValue:=f(t);
+	from:=abs(from); writeln(from);
+	too:=abs(too);
+	y1:=abs(y1);
+	y2:=abs(y2);
+	plotLine( (from/(from+too))*(POLEENDX-POLENULLX),POLEENDY,(from/(from+too))*(POLEENDX-POLENULLX),POLENULLY);
+	plotLine( 0,(y1/(y1+y2))*(POLENULLY-POLEENDY),POLEENDX,(y1/(y1+y2))*(POLENULLY-POLEENDY));
+	x0:=(from/(from+too))*(POLEENDX-POLENULLX);
+	y0:=(y1/(y1+y2))*(POLENULLY-POLEENDY);
 	end;
 	
-procedure plotLine(x,y: real);
-	begin end;
-	
-procedure plotCordLine(x1,x2,y1,y2:real);
-	begin end;
+procedure echoE(k:real);
+	begin
+	OutTextXY(POLENULLX,POLENULLY,FloatToStr(k));
+	end;
+
+//------------------------------------------------- GRAPHIC FUNCTION
 
 
-	
-//--------------------------------------------------
+procedure importFromFile(var from,too,y1,y2,e:real; var n:integer; name:string);
+	var f:text;
+	i,l:integer;
+	begin
+	assign(f,name);
+	reset(f);
+	writeln('ololo');
+	readln(f,from);
+	readln(f,too);
+	readln(f,y1);
+	readln(f,y2);
+	readln(f,e);
+	readln(f,n);
+	close(f);
+	end;
+
+
+
+
+//-------------------------------------------------- WORK FUNCTION
+function work_func(a:real):real;
+	begin
+	work_func:=a*sin(a);
+	end;
+//------------------------------------------------
+
+function getIntegralSum(lastSum:real; from,too:real; n:integer):real;
+	var i:integer; x,y,lx,ly,h,res,xx,yy:real;
+	begin
+	h:=(too-from)/n;
+	res:=lastSum/DEL;
+	lx:=x0; ly:=y0;
+	i:=1;
+	while (i<=n-1) do//for i:=1 to n-1 do
+		begin
+		x:=from+h*i;
+		y:=work_func(x);
+		res:=res+y*h;
+		convertCord(x,y,xx,yy);
+		convertCord(lx,ly,lx,ly);
+		plotLine(xx,yy,lx,ly);
+		lx:=x; ly:=y;
+		i:=i+2;
+		end;
+	convertCord(x,y,x,y);
+	plotLine(x,y,xe,ye);
+	getIntegralSum:=res;
+	end;
+
+
 
 begin
 
-writeln(getFunctionValue(test,4));
+gd:=Detect;
+InitGraph(gd,gm,'');
+
+importFromFile(from,too,y1,y2,e,n,'input.txt');
+plotPole(from,too,y1,y2);
+
+lsum:=(too-from)*( work_func(from)+work_func(too) )/2;
+
+convertCord(from,work_func(from),xb,yb);
+convertCord(too,work_func(too),xe,ye);
+
+sum:=getIntegralSum(lsum,from,too,n);
+
+k:=abs(lsum-sum);
+
+while( k>e ) do
+	begin
+	ch:=ReadKey;
+	if(ch='x') then break;
+	//echoE(k);
+	writeln(k);
+	n:=n*2;
+	lsum:=sum;
+	sum:=getIntegralSum(lsum,from,too,n);
+	k:=abs(lsum-sum);
+	end;
+
+readln;
 
 end.
