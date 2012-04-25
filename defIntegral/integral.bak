@@ -1,8 +1,8 @@
-uses graph,crt;
+uses graph,crt,sysutils;
 
 const POLENULLX = 30;
-const POLENULLY = 530;
-const POLEENDX = 530;
+const POLENULLY = 830;
+const POLEENDX = 830;
 const POLEENDY = 30;
 
 const DEL = 2;
@@ -33,7 +33,7 @@ procedure convertCord(x,y:real; var xx,yy:real);
 	begin
 	xx:=x0+x/(abs(from)+abs(too))*(POLEENDX-POLENULLX);
 	yy:=y0+y/(abs(y1)+abs(y2))*(POLENULLY-POLEENDY);
-	end;;
+	end;
 
 procedure plotPole(from,too,y1,y2:real);
 	begin
@@ -47,9 +47,9 @@ procedure plotPole(from,too,y1,y2:real);
 	y0:=(y1/(y1+y2))*(POLENULLY-POLEENDY);
 	end;
 	
-procedure echoE(k:real);
+procedure echoE(k:real;n:integer);
 	begin
-	OutTextXY(POLENULLX,POLENULLY,FloatToStr(k));
+	OutTextXY(POLENULLX,POLENULLY+10*n,FloatToStr(k));
 	end;
 
 //------------------------------------------------- GRAPHIC FUNCTION
@@ -77,7 +77,8 @@ procedure importFromFile(var from,too,y1,y2,e:real; var n:integer; name:string);
 //-------------------------------------------------- WORK FUNCTION
 function work_func(a:real):real;
 	begin
-	work_func:=a*sin(a);
+	//work_func:=a*sin(a);
+	work_func:=sqrt(a*(1-a));
 	end;
 //------------------------------------------------
 
@@ -86,20 +87,22 @@ function getIntegralSum(lastSum:real; from,too:real; n:integer):real;
 	begin
 	h:=(too-from)/n;
 	res:=lastSum/DEL;
-	lx:=x0; ly:=y0;
+	lx:=xb; ly:=yb;
 	i:=1;
+	setColor(n mod 15);
 	while (i<=n-1) do//for i:=1 to n-1 do
 		begin
 		x:=from+h*i;
 		y:=work_func(x);
 		res:=res+y*h;
-		convertCord(x,y,xx,yy);
-		convertCord(lx,ly,lx,ly);
-		plotLine(xx,yy,lx,ly);
+		convertCord(x,y,x,y);
+		//-convertCord(lx,ly,lx,ly); not need
+		//writeln(x:0:2,' ',y:0:2,' ',lx:0:2,' ',ly:0:2);
+		plotLine(x,y,lx,ly);
 		lx:=x; ly:=y;
 		i:=i+2;
 		end;
-	convertCord(x,y,x,y);
+	//convertCord(x,y,x,y);
 	plotLine(x,y,xe,ye);
 	getIntegralSum:=res;
 	end;
@@ -110,29 +113,33 @@ begin
 
 gd:=Detect;
 InitGraph(gd,gm,'');
-
+writeln('lsum');
 importFromFile(from,too,y1,y2,e,n,'input.txt');
 plotPole(from,too,y1,y2);
 
 lsum:=(too-from)*( work_func(from)+work_func(too) )/2;
-
+writeln('lsum');
 convertCord(from,work_func(from),xb,yb);
 convertCord(too,work_func(too),xe,ye);
+writeln(xb:0:2,' ',yb:0:2,' ',xe:0:2,' ',ye:0:2);
+writeln(x0:0:2,' ',y0:0:2);
 
 sum:=getIntegralSum(lsum,from,too,n);
 
 k:=abs(lsum-sum);
-
+writeln('begin Cicle');
 while( k>e ) do
 	begin
-	ch:=ReadKey;
-	if(ch='x') then break;
-	//echoE(k);
-	writeln(k);
+	//readln(e);
+	//ch:=ReadKey;
+	//if(ch='x') then break;
+	echoE(sum,trunc(ln(n)));
+	//writeln(k);
 	n:=n*2;
 	lsum:=sum;
 	sum:=getIntegralSum(lsum,from,too,n);
 	k:=abs(lsum-sum);
+	readln;
 	end;
 
 readln;
