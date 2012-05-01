@@ -78,7 +78,7 @@ procedure importFromFile(var from,too,y1,y2,e:real; var n:integer; name:string);
 function work_func(a:real):real;
 	begin
 	//work_func:=a*sin(a);
-	work_func:=sin(a);
+	work_func:=sqrt(a*(1-a));
 	end;
 //------------------------------------------------
 
@@ -89,13 +89,14 @@ function getIntegralSum(lastSum:real; from,too:real; n:integer):real;
 	res:=lastSum/DEL;
 	lx:=xb; ly:=yb;
 	i:=1;
+	setColor(n mod 15);
 	while (i<=n-1) do//for i:=1 to n-1 do
 		begin
 		x:=from+h*i;
 		y:=work_func(x);
 		res:=res+y*h;
 		convertCord(x,y,x,y);
-		//-convertCord(lx,ly,lx,ly); not need
+		//convertCord(lx,ly,lx,ly);
 		//writeln(x:0:2,' ',y:0:2,' ',lx:0:2,' ',ly:0:2);
 		plotLine(x,y,lx,ly);
 		lx:=x; ly:=y;
@@ -127,17 +128,18 @@ sum:=getIntegralSum(lsum,from,too,n);
 
 k:=abs(lsum-sum);
 writeln('begin Cicle');
-while( k>n ) do
+while( k>e ) do
 	begin
 	//readln(e);
 	//ch:=ReadKey;
 	//if(ch='x') then break;
-	echoE(sum,n);
-	writeln(k);
+	echoE(sum,trunc(ln(n)));
+	//writeln(k);
 	n:=n*2;
 	lsum:=sum;
 	sum:=getIntegralSum(lsum,from,too,n);
 	k:=abs(lsum-sum);
+	readln;
 	end;
 
 readln;
